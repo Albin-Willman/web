@@ -13,6 +13,7 @@ class ImagesController < ApplicationController
   # GET /uploads/1
   # GET /uploads/1.json
   def show
+    send_file(@image.foto.path(:small), filename: @image.foto_file_name, type: "image/png",disposition: 'inline',x_sendfile: true)    
   end
 
   # GET /uploads/new

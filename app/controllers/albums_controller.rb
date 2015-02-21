@@ -121,7 +121,7 @@ class AlbumsController < ApplicationController
   
   def show    
     if (@album.images)
-      @images = @album.images.order('foto_file_name asc')
+      @images = @album.images.order('foto_file_name asc')      
     else
       @images = nil      
     end    
