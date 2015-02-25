@@ -2,8 +2,8 @@
 class ImagesController < ApplicationController
   before_filter :login_required
   before_filter :authenticate_user!  
-  before_action :set_image, only: [:show, :edit, :update, :destroy]
-  before_action :set_album, only: [:index,:new,:create, :show, :edit, :update, :destroy,:edit_multiple,:update_multiple]
+  before_action :set_image, only: [:show, :edit, :update, :destroy,:display,:show_full,:display]
+  before_action :set_album, only: [:index,:new,:create, :show, :edit, :update, :destroy,:edit_multiple,:update_multiple,:display]
   # GET /uploads
   # GET /uploads.json
   def index
@@ -15,7 +15,9 @@ class ImagesController < ApplicationController
   def show
     send_file(@image.foto.path(:small), filename: @image.foto_file_name, type: "image/png",disposition: 'inline',x_sendfile: true)    
   end
-
+  def show_full
+    send_file(@image.foto.path(:large), filename: @image.foto_file_name, type: "image/png",disposition: 'inline',x_sendfile: true)
+  end
   # GET /uploads/new
   def new
     @image = Image.new     
@@ -75,6 +77,8 @@ end
       format.html { redirect_to edit_album_path(@album), notice: "Bilden togs bort." }
       format.json { head :no_content }
     end
+  end
+  def display
   end
 
   private

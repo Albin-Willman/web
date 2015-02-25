@@ -1,0 +1,4 @@
+$('#current').css('min-height',$('#current').height())
+$('#current_image').fadeOut(3000).delay(1000)
+$('#current').html('<%=escape_javascript(render 'display')%>')
+goToByScroll('#current')

@@ -38,7 +38,7 @@ end
 gem 'devise'
 #gem 'font-awesome-sass'
 gem 'font-awesome-rails'
-gem 'breadcrumbs_on_rails'
+#gem 'breadcrumbs_on_rails'
 gem 'the_role', '~> 3.0.0'
 gem "paperclip", "~> 4.1"
 gem 'fullcalendar-rails', '~>2.2.5'

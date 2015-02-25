@@ -9,9 +9,9 @@ Fsek::Application.routes.draw do
   get '/vecktorn', to: redirect('http://old.fsektionen.se/vecktorn/signup.php'), as: :vecktorn_signup
   
   get 'om' => 'static_pages#om', as: :om
-  
-  
-    
+
+
+
   get 'engagemang' => 'static_pages#utskott', as: :engagemang
   get 'multimedia' => 'static_pages#lankar', as: :multimedia #Ev. efterfrågad av vårt kära Sanningsministerium!
   get 'lankar' => 'static_pages#lankar', as: :lankar
@@ -106,11 +106,12 @@ Fsek::Application.routes.draw do
       delete :destroy_images, path: :ta_bort_bilder, on: :member
       post :settings, path: :installningar, on: :collection      
       post  '', on: :member, action: :show           
-      resources :images, path: :bilder, except: [:new]
+      resources :images, path: :bilder, except: [:new] do
+        get :display, path: :visa, on: :member
+        get :show_full, path: :visa_stor, on: :member
+      end 
     end
   end
-  post '' => 'albums#index', as: :index_albums
-  
   TheRoleManagementPanel::Routes.mixin(self)
    
   root 'static_pages#index'

@@ -1,0 +1,13 @@
+<%if !@image.nil?%>
+    <div class="row">
+      <%=(!@image.previous.nil?) ? link_to("Föregående", display_album_image_path(@album,@image.previous), remote: true, class: "btn btn-u pull-left" , id: 'prev-btn'):""%>
+      <%=link_to("Bildspel",show_full_album_image_path(@album,@image), rel: "group",class:"btn btn-u fancybox center")%>
+      <%=(!@image.next.nil?)     ? link_to("Nästa",      display_album_image_path(@album,@image.next),     remote: true, class: "btn btn-u pull-right", id: 'next-btn'):""%>
+    </div>
+    <div class="row min-height">
+      <%= image_tag(show_full_album_image_url(@album,@image), class: "img-max-height", id: 'current_image') %><br>
+    </div>
+    <%if !@image.subcategory.nil?%>
+        <%=@image.subcategory.text%>
+    <%end%>
+<%end%>

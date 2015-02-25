@@ -1,45 +1,30 @@
-<%=javascript_include_tag "jquery.colorbox-min"%>      
-
-<div class="headline headline-md"><h3><%=@album.title%></h3></div> <%= link_to (content_tag(:i, nil, class: "fa fa-rocket") + " Tillbaka till Galleriet"),albums_path, class: "btn-u btn-u-small" %><%=render partial: "links"%>	  
-<%if @album.images.count > 0%>
-	<div class="container content">
-        <div class="row high-rated margin-bottom-20">
-        	<div class="sorting-block">
-	            <ul class="sorting-nav sorting-nav-v1 text-center">
-	                <li class="filter active" data-filter="all">Alla</li>
-	                <% @album.subcategories.each do |kat|%>
-		                 <% if kat.images.count > 0 %>
-		                	<li class="filter" data-filter="category_<%=kat.id%>"><%=kat.text%></li>
-		                 <% end %>
-	                <% end %>		                
-	            </ul>	            
-                <ul class="row sorting-grid">                	
-                	<% @images.each do |p| %>
-	                	<li class="col-lg-3 col-md-4 col-xs-6 thumb mix <%if p.subcategory_id%> category_<%=p.subcategory_id%>"data-cat="<%=p.subcategory_id%>"><%else%>"><%end%>                		
-                            <%= image_tag(album_image_url(@album,p), class: "img") %>                                   
-	            		</li>
-            		<%end%>
-            	</ul>
-            <div class="clearfix"></div>			
-		</div>
-	</div>
-        </div><!--/gallery-page-->
-    <%else%>
-    <div class="row margin-bottom-20">
-	    <div class="col-md-4 col-md-offset-4">
-	    	<h4>Här saknas ännu bilder!<br> Men ni kan titta på Linus så länge!</h4><br>
-	    	<%= image_tag("img/linus2.jpg")%>
-		</div>
-	</div>
-    <%end%><!-- if images-->          		
-  </div>    
+<div class="row margin-bottom-20">
+    <div class="headline headline-md"><h3><%=@album.title%></h3> <span class="pull-right"><%= link_to (content_tag(:i, nil, class: "fa fa-rocket") + " Tillbaka till Galleriet"),albums_path, class: "btn-u btn-u-small" %><%=render partial: "links"%></span></div>
 </div>
-<script>
-var init;
-	init = function() {
-		PortfolioPage.init();
-		jQuery('img.gallery').colorbox({rel: "album",maxHeight:"100%",maxWidth:"100%"});
-	};
-$(document).ready(init)
-$(document).on('page:load', init)
-</script>
+<div class="row margin-bottom-20">
+    <div class="col-md-10 col-md-offset-1 center" id="current">
+      <%=render 'images/display'%>
+    </div>
+</div>
+<div class="row">
+    <div class="controls center">
+            <button class="filter active" data-filter="all">Alla</button>
+        <% @album.subcategories.each do |kat|%>
+             <% if kat.images.count > 0 %>
+                <button class="filter" data-filter=".<%=dom_id(kat)%>"><%=kat.text%></button>
+             <% end %>
+        <% end %>
+    </div>
+</div>
+<div class="row">
+    <div id="container-gallery">
+        <% @images.each do |i|%>
+            <div class="mix <%if i.subcategory%> <%= dom_id(i.subcategory) %>"><%else%>"><%end%>
+                <%=link_to(display_album_image_path(@album,i),  remote: true) do%>
+                    <%= image_tag(album_image_url(@album,i), class: "center", id: dom_id(i)) %>
+                <%end%>
+                <%=link_to("Bildspel",show_full_album_image_path(@album,i), rel: "group",class:"hidden fancybox")%>
+            </div>
+        <%end%>
+    </div>
+</div>
