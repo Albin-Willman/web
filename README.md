@@ -1,8 +1,14 @@
+[![Code Climate](https://codeclimate.com/github/fsek/web/badges/gpa.svg)](https://codeclimate.com/github/fsek/web) [![Test Coverage](https://codeclimate.com/github/fsek/web/badges/coverage.svg)](https://codeclimate.com/github/fsek/web) [![Build Status](https://travis-ci.org/fsek/web.svg?branch=master)](https://travis-ci.org/fsek/web)
+
 Detta finns:
 ============
-- Simpla nyheter
-- Users med profiler och authentication
+- Användarsystem, profiler och auktorisering
+- Bilbokning
+- Dynamiska utskott som har poster
+- Kontaktformulär 
+- Nyheter
 - Layout
+- En storage-mapp där vi placerar bilder, dokument
 
 
 Generella layoutsaker:

@@ -11,8 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20410822171437) do
 
+ActiveRecord::Schema.define(version: 20410822171440) do
   create_table "albums", force: true do |t|
     t.string   "title"
     t.text     "description"
@@ -254,6 +254,21 @@ ActiveRecord::Schema.define(version: 20410822171437) do
     t.datetime "updated_at"
     t.string   "phone"
     t.string   "stil_id"
+  end
+
+  create_table "notices", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.boolean  "public"
+    t.date     "d_publish"
+    t.date     "d_remove"
+    t.integer  "sort"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "page_elements", force: true do |t|
