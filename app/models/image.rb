@@ -2,9 +2,8 @@ class Image < ActiveRecord::Base
   belongs_to :album  
   belongs_to :subcategory
   has_attached_file :foto, 
-                    :styles => { original: "4000x4000>", large: "1500x1500>", small: "250x250>"},
-                    :path => ":rails_root/storage/gallery/album/:album_id/:id/:style/:filename",
-                    :url => "/system/images/album/:album_id/:id/:style/:filename"  
+                    :styles => { large: "1500x1500>", small: "250x250>"},
+                    :path => ":rails_root/storage/gallery/album/:album_id/:style/:filename"
   validates_attachment_content_type :foto, :content_type => /\Aimage\/.*\Z/  
   Paperclip.interpolates :album_id do |a, s|    
     a.instance.album_id    

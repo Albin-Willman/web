@@ -5,27 +5,11 @@ class AlbumsController < ApplicationController
   before_filter :authenticate, only: [:new, :create,:edit,:destroy,:update,:settings,:destroy_images]
   before_action :set_edit
   before_action :set_album, except: [:index,:new,:create,:settings]
-  before_action :categories
+  #before_action :categories
   
   def index
     @albums = Album.order('start_date asc')
-    @albums_latest = Album.order('created_at desc LIMIT 4')    
-    
-    if (params[:id] != nil) && (params[:datum] != "")     
-      @id = params[:id]
-      @datum = Date.parse(params[:datum])  
-      if @datum < Date.today
-        if @kategorier.find_by_id(@id)
-            @searched = Album.where(:start_date => @datum..Date.today).all
-        else                
-          @searched = Album.where(:category => @kategorier.find(@id).name, :start_date => @datum...Date.today).all
-        end
-      end
-    elsif (params[:id]) && (params[:datum] == "" )
-      @id = params[:id]
-      @searched = Album.where(:category => @kategorier.find(@id).name)    
-    end
-      
+    @albums_latest = Album.order('created_at desc LIMIT 4')
   end
   
   def edit
@@ -118,7 +102,7 @@ class AlbumsController < ApplicationController
       flash.now[:notice] = 'Kategorin togs bort'
     end
   end 
-  
+  def
   def show    
     if (@album.images)
       @images = @album.images.order('foto_file_name asc')
@@ -177,7 +161,7 @@ class AlbumsController < ApplicationController
   end
   def update
     respond_to do |format|
-      if @album.update_attributes(album_params)                
+      if @album.update(album_params)
         format.html { redirect_to edit_album_path(@album), :notice => 'Albumet uppdaterades!' }
         format.json { head :no_content }
       else
@@ -199,7 +183,7 @@ private
      @subcategories = Subcategory.order('text desc')
   end
   def set_album
-    @album = Album.find(params[:id])      
+    @album = Album.find_by_id(params[:id])
   end
   def set_edit
    if (current_user) && (current_user.moderator?(:galleri))
@@ -212,6 +196,6 @@ private
     params.fetch(:image,{}).permit(:album_id,:subcategory_id)
   end
   def album_params
-    params.fetch(:album,{}).permit(:title,:description,:author,:location,:public,:start_date,:end_date,:album_category_ids => [],:subcategory_ids => [],images_parameters: [:id, :foto])
+    params.fetch(:album,{}).permit(:title,:description,:author,:location,:public,:start_date,:end_date,:album_category_ids => [],:subcategory_ids => [])
   end
 end

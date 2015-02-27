@@ -1,8 +1,10 @@
 class Album < ActiveRecord::Base
   has_many :images, dependent: :destroy
-  belongs_to :profile
-  has_and_belongs_to_many :album_categories
-  has_and_belongs_to_many :subcategories
+
+  has_many :profiles
+  has_and_belongs_to_many :categories
+  #has_and_belongs_to_many :album_categories
+  #has_and_belongs_to_many :subcategories
   
   validates :start_date, presence: true  
   def to_date

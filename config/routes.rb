@@ -1,6 +1,18 @@
 
 Fsek::Application.routes.draw do
 
+  get 'categories/index'
+
+  get 'categories/show'
+
+  get 'categories/edit'
+
+  get 'categories/update'
+
+  get 'categories/create'
+
+  get 'categories/destroy'
+
   # Resources on the page
   get 'kurslankar' => 'static_pages#kurslankar'
   get 'libo' => 'static_pages#libo', as: :libo

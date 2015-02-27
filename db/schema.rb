@@ -11,20 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20410822171432) do
-
-  create_table "album_categories", force: true do |t|
-    t.string   "name"
-    t.text     "text"
-    t.boolean  "visible"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "album_categories_albums", id: false, force: true do |t|
-    t.integer "album_id"
-    t.integer "album_category_id"
-  end
+ActiveRecord::Schema.define(version: 20410822171437) do
 
   create_table "albums", force: true do |t|
     t.string   "title"
@@ -40,14 +27,17 @@ ActiveRecord::Schema.define(version: 20410822171432) do
     t.integer  "photo_category_id"
   end
 
+  create_table "albums_categories", id: false, force: true do |t|
+    t.integer "album_id"
+    t.integer "category_id"
+  end
+
+  add_index "albums_categories", ["album_id", "category_id"], name: "index_albums_categories_on_album_id_and_category_id", unique: true
+  add_index "albums_categories", ["category_id"], name: "index_albums_categories_on_category_id"
+
   create_table "albums_images", id: false, force: true do |t|
     t.integer "album_id"
     t.integer "image_id"
-  end
-
-  create_table "albums_subcategories", id: false, force: true do |t|
-    t.integer "album_id"
-    t.integer "subcategory_id"
   end
 
   create_table "cafe_works", force: true do |t|
@@ -65,6 +55,7 @@ ActiveRecord::Schema.define(version: 20410822171432) do
     t.integer  "d_year"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "remove_worker"
   end
 
   create_table "cafe_works_councils", id: false, force: true do |t|
@@ -82,6 +73,15 @@ ActiveRecord::Schema.define(version: 20410822171432) do
     t.string   "stil_id"
     t.string   "email"
     t.string   "phone"
+  end
+
+  create_table "categories", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "typ"
+    t.boolean  "sub",         default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "contacts", force: true do |t|
@@ -366,12 +366,6 @@ ActiveRecord::Schema.define(version: 20410822171432) do
     t.string   "title",       null: false
     t.text     "description", null: false
     t.text     "the_role",    null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "subcategories", force: true do |t|
-    t.string   "text"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
