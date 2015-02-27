@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Rails fsek: development" uuid="0436ce20-8aee-4605-a345-00956b9514ad">
+      <first-sync>true</first-sync>
+    </data-source>
+    <data-source name="Rails fsek: test" uuid="bd54a5a4-9a79-4a2d-831f-a6e1072928c2">
+      <first-sync>true</first-sync>
+    </data-source>
+    <data-source name="Rails fsek: production" uuid="ad6b383d-214c-4550-b5c3-ebff2f61e7cb">
+      <first-sync>true</first-sync>
+      <user-name>root</user-name>
+      <user-password>dfccdf9edfcfdfdcdfcfdfd8df93df92</user-password>
+    </data-source>
+  </component>
+</project>
