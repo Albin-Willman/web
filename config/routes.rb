@@ -90,7 +90,9 @@ Fsek::Application.routes.draw do
       end
     end
 
-    resources :faqs, path: :faq
+    resources :faqs, path: :faq do
+      #resource :categories, path: :kategori, on: :collection
+    end
 
     resources :contacts, path: :kontakt do
       post :mail, on: :member
@@ -123,20 +125,20 @@ Fsek::Application.routes.draw do
       resources :candidates, path: :kandidaturer, except: [:new, :update] 
     end
 
+    resources :categories, path: :kategorier
+
     resources :albums, path: :galleri do
-      post :edit, on: :member
-      get :settings, path: :installningar, on: :collection
       get :upload_images, path: :ladda_upp, on: :member
-      patch :upload_images, path: :ladda_upp, on: :member
+      post :upload_images, path: :ladda_upp, on: :member
       delete :destroy_images, path: :ta_bort_bilder, on: :member
-      post :settings, path: :installningar, on: :collection      
-      post  '', on: :member, action: :show           
+
       resources :images, path: :bilder, except: [:new] do
         get :display, path: :visa, on: :member
         get :show_full, path: :visa_stor, on: :member
       end 
     end
   end
+
   TheRoleManagementPanel::Routes.mixin(self)
    
   root 'static_pages#index'

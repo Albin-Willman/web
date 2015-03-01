@@ -1,2 +1,4 @@
-<h1>Categories#show</h1>
-<p>Find me in app/views/categories/show.html.erb</p>
+<% provide(:title, 'Kategorier') %>
+<%= render @category%>
+<%= link_to 'Redigera', edit_category_path(@category),class:"btn btn-u" %>
+<%= link_to 'Tillbaka', notices_path,class:"btn btn-u" %>

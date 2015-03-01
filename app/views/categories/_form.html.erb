@@ -1,0 +1,21 @@
+<%= form_for(@category) do |f| %>
+    <%=render 'shared/form_errors', current: @category%>
+
+    <%= f.label :title, class: 'reg-label'%>
+    <div class="input-group margin-bottom-20">
+      <%= f.text_field :title,class: 'form-control' %>
+    </div>
+
+    <%= f.label :description, class: 'reg-label'%>
+    <div class="input-group margin-bottom-20">
+      <%= f.text_area :description,class: 'form-control',size:"120x10" %>
+    </div>
+
+    <%= f.label :sub, class: 'reg-label'%>
+    <div class="input-group margin-bottom-20">
+      <%= f.check_box :sub %>
+    </div>
+    <div class="actions margin-bottom-20">
+      <%= f.submit class:"btn btn-u" %>
+    </div>
+<% end %>

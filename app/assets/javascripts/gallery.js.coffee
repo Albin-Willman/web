@@ -11,8 +11,6 @@ fancy = ->
         40
       prev: ->
         38
-
-
   )
 $(document).ready(fancy)
 
@@ -30,7 +28,3 @@ gallery_controls = (e) ->
   return
 $(document).on 'keydown', gallery_controls
 #when user presses a key, triggers our fxn
-
-
-goToByScroll = (id) ->
-  $('html,body').animate(scrollTop: $(id).offset().top, 'slow')

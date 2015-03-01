@@ -1,16 +1,17 @@
-<div class="col-md-6 reg-page">
+<div class="col-md-8 col-md-offset-2 reg-page">
 	<%= label_tag 'Redigera album',nil, :class => 'reg-header'%><br>
 	<div class="row">
 		<% if @album.title %>									
 			<%= link_to (content_tag(:i, nil, class: "fa fa-edit") + " Visa album"), @album,class: 'btn btn-u' %>
 			<%= link_to (content_tag(:i, nil, class: "fa fa-trash-o") + " Förinta"), @album,method: :delete,data:{confirm:'Albumet raderas och kan inte återställas, är du säker?'},class: 'btn btn-u' %>
 		<% end %>
-		<%= link_to (content_tag(:i,nil,class: "fa fa-arrow-circle-o-left")+ 'Tillbaka'), :back,class: 'btn btn-u' %>
+		<%= link_to (content_tag(:i,nil,class: "fa fa-arrow-circle-o-left")+ '  Tillbaka'), :back,class: 'btn btn-u' %>
 	</div>
 	<div class="row">				
 		<%= render 'form'%>
 	</div>			
 </div>
+<% if 1 == 0%>
 <div class="col-md-6 reg-page">
 	<% if @album.title %>
 			<%= link_to (content_tag(:i, nil, class: "fa fa-edit") + " Lägg till bilder"), upload_images_album_path(@album),class: 'btn btn-u'%>
@@ -20,7 +21,7 @@
 	  	<%=submit_tag 'Markera alla',class: "btn btn-u"%>
 	  	<%=submit_tag 'Ta bort markerade',class: "btn btn-u"%><br><br>
 	  	<%= select_tag :image_category, 
-			     options_from_collection_for_select(@album.subcategories,:id,:text),
+			     options_from_collection_for_select(@album.categories.subs,:id,:text),
 			     include_blank: true, 
 			     :class => " listBox"%><br><br>
      	<%=submit_tag 'Byt kategori',class: "btn btn-u"%><br>
@@ -37,3 +38,4 @@
 		</ul>
 	<%end-%>			
 </div>
+<%end%>

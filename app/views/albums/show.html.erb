@@ -1,25 +1,37 @@
 <div class="row margin-bottom-20">
     <div class="headline headline-md"><h3><%=@album.title%></h3> <span class="pull-right"><%= link_to (content_tag(:i, nil, class: "fa fa-rocket") + " Tillbaka till Galleriet"),albums_path, class: "btn-u btn-u-small" %><%=render partial: "links"%></span></div>
 </div>
+<%= (@status.present?) ? @status : ""%>
 <div class="row margin-bottom-20">
     <div class="col-md-10 col-md-offset-1 center" id="current">
-      <%=render 'images/display'%>
+      <%#render 'images/display'%>
+      <div class="row">
+        <%=link_to("Föregående", display_album_image_path(@album,@image.previous), remote: true, class: "btn btn-u pull-left" ,     id: 'prev-btn')%>
+        <%=link_to("Bildspel",   show_full_album_image_path(@album,@image),        rel: "group", class:"btn btn-u fancybox center", id: "view-btn")%>
+        <%=link_to("Nästa",      display_album_image_path(@album,@image.next),     remote: true, class: "btn btn-u pull-right",     id: 'next-btn')%>
+      </div>
+      <div class="row min-height">
+        <%= image_tag(show_full_album_image_url(@album,@image.previous), id: dom_id(@image.previous), data: {img: "1"}, class: "img-max-height", style: "display: none") %><br>
+        <%= image_tag(show_full_album_image_url(@album,@image),          id: dom_id(@image),          data: {img: "2"}, class: "img-max-height") %><br>
+        <%= image_tag(show_full_album_image_url(@album,@image.next),     id: dom_id(@image.next),     data: {img: "3"}, class: "img-max-height", style: "display: none")%>
+      </div>
+      <%=text_field_tag(:share,album_url(@album, link: @image.id), class:"form-tag center", id: "share-field", size: "40")%>
     </div>
 </div>
 <div class="row">
     <div class="controls center">
             <button class="filter active" data-filter="all">Alla</button>
-        <% @album.subcategories.each do |kat|%>
-             <% if kat.images.count > 0 %>
-                <button class="filter" data-filter=".<%=dom_id(kat)%>"><%=kat.text%></button>
-             <% end %>
+        <% @album.categories.subs.each do |kat|%>
+             <% #if kat.images.count > 0 %>
+                <button class="filter" data-filter=".<%=dom_id(kat)%>"><%=kat.title%></button>
+             <% #end %>
         <% end %>
     </div>
 </div>
 <div class="row">
     <div id="container-gallery">
         <% @images.each do |i|%>
-            <div class="mix <%if i.subcategory%> <%= dom_id(i.subcategory) %>"><%else%>"><%end%>
+            <div class="mix <%if i.category%> <%= dom_id(i.category) %>"><%else%>"><%end%>
                 <%=link_to(display_album_image_path(@album,i),  remote: true) do%>
                     <%= image_tag(album_image_url(@album,i), class: "center", id: dom_id(i)) %>
                 <%end%>

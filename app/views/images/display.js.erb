@@ -1,4 +1,22 @@
-$('#current').css('min-height',$('#current').height())
-$('#current_image').fadeOut(3000).delay(1000)
-$('#current').html('<%=escape_javascript(render 'display')%>')
-goToByScroll('#current')
+// To remove the change in height of the div when switching image.
+$('#current').css('min-height',$('#current').height());
+if ($('#<%=dom_id(@image)%>').attr('data-img') == 1){
+    $('[data-img=2],[data-img=3]').hide();
+    $('[data-img=1]').fadeIn();
+    $('[data-img=2]').attr('src','<%=show_full_album_image_url(@album,@image.previous)%>').attr('id','<%=dom_id(@image.previous)%>');
+    $('[data-img=3]').attr('src','<%=show_full_album_image_url(@album,@image.next)%>').attr('id','<%=dom_id(@image.next)%>');
+} else if ($('#<%=dom_id(@image)%>').attr('data-img') == 2){
+    $('[data-img=1],[data-img=3]').hide();
+    $('[data-img=2]').fadeIn();
+    $('[data-img=1]').attr('src','<%=show_full_album_image_url(@album,@image.previous)%>').attr('id','<%=dom_id(@image.previous)%>');
+    $('[data-img=3]').attr('src','<%=show_full_album_image_url(@album,@image.next)%>').attr('id','<%=dom_id(@image.next)%>');
+} else if ($('#<%=dom_id(@image)%>').attr('data-img') == 3){
+    $('[data-img=1],[data-img=2]').hide();
+    $('[data-img=3]').fadeIn();
+    $('[data-img=1]').attr('src','<%=show_full_album_image_url(@album,@image.previous)%>').attr('id','<%=dom_id(@image.previous)%>');
+    $('[data-img=2]').attr('src','<%=show_full_album_image_url(@album,@image.next)%>').attr('id','<%=dom_id(@image.next)%>');
+}
+$('#prev-btn').attr('href','<%=display_album_image_path(@album,@image.previous)%>');
+$('#view-btn').attr('href','<%=show_full_album_image_path(@album,@image)%>');
+$('#next-btn').attr('href','<%=display_album_image_path(@album,@image.next)%>');
+$('#share-field').attr('value','<%=album_url(@album, link: @image.id)%>');

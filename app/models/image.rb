@@ -1,6 +1,6 @@
 class Image < ActiveRecord::Base
   belongs_to :album  
-  belongs_to :subcategory
+  belongs_to :category
   has_attached_file :foto, 
                     :styles => { large: "1500x1500>", small: "250x250>"},
                     :path => ":rails_root/storage/gallery/album/:album_id/:style/:filename"

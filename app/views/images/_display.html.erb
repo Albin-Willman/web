@@ -7,7 +7,7 @@
     <div class="row min-height">
       <%= image_tag(show_full_album_image_url(@album,@image), class: "img-max-height", id: 'current_image') %><br>
     </div>
-    <%if !@image.subcategory.nil?%>
-        <%=@image.subcategory.text%>
+    <%if !@image.category.nil?%>
+        <%=@image.category.text%>
     <%end%>
 <%end%>

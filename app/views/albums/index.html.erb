@@ -16,9 +16,9 @@
 </div>
 <div class="controls center">
   <button class="filter active" data-filter="all">Alla</button>
-  <% @kategorier.each do |kat|%>
+  <% @categories.each do |kat|%>
       <% if kat.albums.count > 0 %>
-          <button class="filter" data-filter=".<%=dom_id(kat)%>"><%=kat.name%></button>
+          <button class="filter" data-filter=".<%=dom_id(kat)%>"><%=kat.title%></button>
       <% end %>
   <% end %>
 </div>
@@ -26,7 +26,7 @@
 <div class="row">
   <div id="container-gallery">
     <% @albums.each do |album|%>
-        <div class="mix <%if album.category%> <%= dom_id(album.category) %>"><%else%>"><%end%>
+        <div class="mix <%if album.categories.first%> <%= dom_id(album.categories.first) %>"><%else%>"><%end%>
             <% @album = album%>
             <%=render 'album_preview'%>
         </div>
