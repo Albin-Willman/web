@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   include TheRole::User
   
   has_one :profile 
+  has_many :roles
 
   after_create :create_profile_for_user
   devise :database_authenticatable, :registerable,
@@ -12,9 +13,11 @@ class User < ActiveRecord::Base
 
   validates_uniqueness_of :username
   validate :is_f_member
+
+  def is? role
+    roles.map(&:name).include? role.to_s
+  end
   
-
-
   def create_profile_for_user
     Profile.create(user: self)
   end

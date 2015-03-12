@@ -3,12 +3,16 @@ class StaticPagesController < ApplicationController
   include TheRole::Controller
   
   skip_before_filter :authenticate_user!
+
   def faq
   end
+
   def libo  
   end 
+
   def kurslankar    
   end
+
   def index
     @news = News.order('created_at desc LIMIT 5')
     if current_user.nil?
@@ -23,4 +27,3 @@ class StaticPagesController < ApplicationController
   end
 end
 
-  

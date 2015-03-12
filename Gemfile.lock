@@ -40,6 +40,7 @@ GEM
     arel (5.0.1.20140414130214)
     bcrypt (3.1.7)
     builder (3.2.2)
+    cancancan (1.10.1)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.4)
@@ -221,6 +222,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  cancancan
   coffee-rails (~> 4.0.0)
   database_cleaner
   devise
