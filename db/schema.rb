@@ -139,25 +139,6 @@ ActiveRecord::Schema.define(version: 20410822171443) do
     t.integer "post_id"
   end
 
-  create_table "email_accounts", force: true do |t|
-    t.integer  "profile_id"
-    t.string   "email"
-    t.string   "title"
-    t.boolean  "active"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "emails", force: true do |t|
-    t.integer  "email_account_id"
-    t.string   "receiver"
-    t.string   "subject"
-    t.text     "message"
-    t.boolean  "copy"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "events", force: true do |t|
     t.string   "title"
     t.string   "author"
@@ -183,8 +164,6 @@ ActiveRecord::Schema.define(version: 20410822171443) do
     t.datetime "updated_at"
     t.string   "category"
   end
-
-  add_index "faqs", ["category"], name: "index_faqs_on_category"
 
   create_table "images", force: true do |t|
     t.string   "description"
@@ -261,46 +240,6 @@ ActiveRecord::Schema.define(version: 20410822171443) do
     t.datetime "updated_at"
   end
 
-  create_table "oauth_access_grants", force: true do |t|
-    t.integer  "resource_owner_id", null: false
-    t.integer  "application_id",    null: false
-    t.string   "token",             null: false
-    t.integer  "expires_in",        null: false
-    t.text     "redirect_uri",      null: false
-    t.datetime "created_at",        null: false
-    t.datetime "revoked_at"
-    t.string   "scopes"
-  end
-
-  add_index "oauth_access_grants", ["token"], name: "index_oauth_access_grants_on_token", unique: true
-
-  create_table "oauth_access_tokens", force: true do |t|
-    t.integer  "resource_owner_id"
-    t.integer  "application_id"
-    t.string   "token",             null: false
-    t.string   "refresh_token"
-    t.integer  "expires_in"
-    t.datetime "revoked_at"
-    t.datetime "created_at",        null: false
-    t.string   "scopes"
-  end
-
-  add_index "oauth_access_tokens", ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true
-  add_index "oauth_access_tokens", ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id"
-  add_index "oauth_access_tokens", ["token"], name: "index_oauth_access_tokens_on_token", unique: true
-
-  create_table "oauth_applications", force: true do |t|
-    t.string   "name",                      null: false
-    t.string   "uid",                       null: false
-    t.string   "secret",                    null: false
-    t.text     "redirect_uri",              null: false
-    t.string   "scopes",       default: "", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true
-
   create_table "page_elements", force: true do |t|
     t.integer  "displayIndex"
     t.boolean  "sidebar"
@@ -333,21 +272,6 @@ ActiveRecord::Schema.define(version: 20410822171443) do
     t.datetime "updated_at"
   end
 
-  create_table "phrasing_phrase_versions", force: true do |t|
-    t.integer  "phrasing_phrase_id"
-    t.text     "value"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "phrasing_phrases", force: true do |t|
-    t.string   "locale"
-    t.string   "key"
-    t.text     "value"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "posts", force: true do |t|
     t.string   "title"
     t.integer  "limit",         default: 0
@@ -371,6 +295,7 @@ ActiveRecord::Schema.define(version: 20410822171443) do
 
   create_table "profiles", force: true do |t|
     t.string   "name"
+    t.string   "lastname"
     t.string   "program"
     t.integer  "start_year"
     t.integer  "user_id"
@@ -384,7 +309,6 @@ ActiveRecord::Schema.define(version: 20410822171443) do
     t.string   "email"
     t.string   "stil_id"
     t.string   "phone"
-    t.string   "lastname"
   end
 
   create_table "rents", force: true do |t|
@@ -396,14 +320,14 @@ ActiveRecord::Schema.define(version: 20410822171443) do
     t.string   "phone"
     t.text     "purpose",     default: ""
     t.boolean  "disclaimer",  default: false
+    t.string   "status",      default: "Ej bestämd"
     t.boolean  "aktiv",       default: true
     t.integer  "council_id"
     t.integer  "profile_id"
+    t.text     "comment"
+    t.boolean  "service",     default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "comment"
-    t.string   "status",      default: "Ej bestämd"
-    t.boolean  "service",     default: false
     t.string   "access_code"
   end
 
@@ -441,9 +365,6 @@ ActiveRecord::Schema.define(version: 20410822171443) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
   create_table "work_posts", force: true do |t|
     t.string   "title"
